@@ -11,10 +11,10 @@ class Funcionario:
         nome_completo = self.nome + ' ' + self.sobrenome
         self.nome_completo = nome_completo.title().strip()
     
-    def __str__(self) -> str:
-        return f'{self.funcao}: {self.nome_completo}'
+    def __str__(self):
+        return f'<{self.funcao}: {self.nome_completo}>'
     def __repr__(self):
-        return '%s: %s' % (self.funcao, self.nome_completo)
+        return '<%s: %s>' % (self.funcao, self.nome_completo)
 
 class Gerente(Funcionario):
     funcao:str = 'Gerente'
@@ -22,10 +22,10 @@ class Gerente(Funcionario):
         super().__init__(nome, sobrenome, cpf, salario)
         self.funcionarios = funcionarios
 
-        def __str__(self) -> str:
-            return f'{Gerente.__name__}: {self.nome}'
-        def __repr__(self) -> str:
-            return '%s: %s' % (Gerente.__name__, self.nome)
+        def __str__(self):
+            return f'<{self.funcao}: {self.nome}>'
+        def __repr__(self):
+            return '<%s: %s>' % self.funcao, self.nome
 
 class Empresa:
     def __init__(self, nome:str, cnpj:str, contratados:list = []):
@@ -34,9 +34,9 @@ class Empresa:
         self.contratados = contratados
 
     def __str__(self) -> str:
-        return f'{Empresa.__name__}: {self.nome}'
-    def __repr__(self) -> str:
-        return '%s: %s' % (Empresa.__name__, self.nome)
+        return f'<Empresa: {self.nome}>'
+    def __repr__(self):
+        return '<%s: %s>' % (Empresa.__name__, self.nome)
     
     def contratar_funcionario(self, funcionario):
         for contratado in self.contratados:
