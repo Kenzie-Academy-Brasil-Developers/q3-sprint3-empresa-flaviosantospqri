@@ -1,6 +1,3 @@
-from mimetypes import init
-
-
 class Funcionario:
     funcao:str = 'Funcionario'
     def __init__(self, nome:str, sobrenome:str, cpf:str, salario:int = 3000) -> None:
@@ -26,6 +23,21 @@ class Gerente(Funcionario):
             return f'<{self.funcao}: {self.nome}>'
         def __repr__(self):
             return '<%s: %s>' % self.funcao, self.nome
+    def aumento_salarial(self, funcionario, empresa):
+        if funcionario.funcao == 'Funcionario':
+            for func in self.funcionarios:
+                if func.__dict__['cpf'] == funcionario.__dict__['cpf']:
+                   novo_salario = func.salario * 10/100 + func.salario
+                   func.salario = int(novo_salario)
+                   print(func.salario)
+                   if novo_salario >= 8000:
+                       new_gerente = Gerente(funcionario.__dict__['nome'],funcionario.__dict__['sobrenome'], funcionario.__dict__['cpf'] )
+                       empresa.contratados.remove(funcionario)
+                       empresa.contratados.append(new_gerente)
+                   return True
+        else:
+            return False
+
 
 class Empresa:
     def __init__(self, nome:str, cnpj:str, contratados:list = []):
@@ -80,18 +92,14 @@ class Empresa:
 
     @staticmethod
     def promocao(empresa, funcionario):
-        ...
-        
-# e = Empresa('ss', 'wss')
-# xf = Gerente('s', 'ss', '124423')
-# a = Funcionario('flavio', 'Santos', '1223')
-# x = Gerente('flavio', 'Santxos', '122x3')
-# # print(a.__dict__)
-# # print(f.__dict__)
-# e.contratar_funcionario(a)
-# e.contratar_funcionario(x)
-# e.adicionar_funcionario_para_gerente(x,a)
-# print(e.demissao(a))
-# print(e.demissao(a))
-# print(x.funcionarios)
-# print(e.contratados)
+        if funcionario.funcao == 'Funcionario':
+            for func in empresa.contratados:
+                if func.__dict__['cpf'] == funcionario.__dict__['cpf']:
+                    new_gerente = Gerente(funcionario.__dict__['nome'],funcionario.__dict__['sobrenome'], funcionario.__dict__['cpf'] )
+                    empresa.contratados.remove(funcionario)
+                    empresa.contratados.append(new_gerente)
+                    return True
+                else:
+                    return False
+        else:
+            return False
